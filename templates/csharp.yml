@@ -1,0 +1,39 @@
+language: csharp
+
+normal:
+  - {sign: B, raw: B, type: bool, reader: 'helper.ReadBool()'}
+  - {sign: I, raw: I, type: int, reader: 'helper.ReadInt32()'}
+  - {sign: F, raw: F, type: float, reader: 'helper.ReadFloat()'}
+  - {sign: S, raw: S, type: string, reader: 'helper.ReadStr()'}
+  - {sign: LI, raw: LI, type: List<int>, reader: 'helper.ReadInt32List()'}
+  - {sign: LF, raw: LF, type: List<float>, reader: 'helper.ReadFloatList()'}
+  - {sign: LS, raw: LS, type: List<string>, reader: 'helper.ReadStrList()'}
+  - {sign: Effect, raw: Effect, type: string, reader: 'helper.ReadStr()'}
+  - {sign: LEffect, raw: LEffect, type: string, reader: 'helper.ReadStr()'}
+
+glob:
+  - sign: array<*,*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: list<*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: set<*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: map<*,*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+class:
+  - class_type: enum
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - class_type: struct
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:

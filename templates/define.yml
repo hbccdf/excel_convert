@@ -1,0 +1,226 @@
+enums:
+
+indexs:
+  Effect:
+    tables:
+      - {name: [SkillAccountConfig], range: [120001, 129999]}
+      - {name: [SkillBuffConfig, BuffConfig], range: [160001,169999]}
+      - {name: [SkillEmitConfig], range: [130001, 139999]}
+      - {name: [SkillFuncConfig], range: [100001, 109999]}
+      - {name: [SkillMoveConfig], range: [170001, 179999]}
+      - {name: [SkillRangeConfig], range: [150001, 159999]}
+      - {name: [SkillTurboConfig, BuffConfig], range: [140001, 149999]}
+  AreaEffect:
+    tables:
+      - {name: [AreaEffectConfig], range: [1, 9999]}
+  Item:
+    tables:
+      - {name: [ItemConfig], range: [30001, 39999]}
+  MP2CD:
+    tables:
+      - {name: [MP2CDConfig], range: [0, 10000]}
+  Npc:
+    tables:
+      - {name: [NpcConfig], range: [20001, 29999]}
+  Hero:
+    tables:
+      - {name: [HeroConfig], range: [10001, 19999]}
+  Limit:
+    tables:
+      - {name: [SkillLimitConfig], range: [1001, 1999]}
+  Skill:
+    tables:
+      - {name: [SkillConfig], range: [1100001, 9999999]}
+  SkillParameter:
+    tables:
+      - {name: [SkillParameterConfig], range: [101, 999999]}
+  Passive:
+    tables:
+      - {name: [PassiveSkillConfig], range: [1, 999]}
+  Target:
+    tables:
+      - {name: [SkillTargetConfig], range: [1001, 9999]}
+  Axis:
+    tables:
+      - {name: [TimeAxis], range: [1, 9999]}
+  AllSkill:
+    tables:
+      - {name: [SkillConfig], range: [1100001, 9999999]}
+      - {name: [PassiveSkillConfig], range: [1, 999]}
+
+structs:
+  - name: SSNextSkillEffectCfg
+    language: cpp
+    fields:
+      - {name: un32SkillEffectID, sign: I, position: 10, default: '0', desc: '效果ID'}
+      - {name: n32Delay, sign: I, position: 20, default: '0', desc: '调用等待时间'}
+      - {name: Params, sign: LI, position: 30, default: '', desc: '参数列表'}
+      - {name: Depends, sign: LI, position: 40, default: '', desc: '依赖列表'}
+  - name: SeasonEffectInfo
+    language: cpp
+    fields:
+      - {name: FrictionPlayer, sign: I, position: 10, default: '0', desc: '对角色产生的摩擦力大小'}
+      - {name: FrictionNPC, sign: I, position: 20, default: '0', desc: '对NPC产生的摩擦力大小'}
+      - {name: MaxSpeedPercent, sign: I, position: 30, default: '0', desc: '对角色速度上限的百分比影响'}
+      - {name: AngleSpeedPercent, sign: I, position: 40, default: '0', desc: '对角色角速度百分比影响'}
+  - name: AttackHeroConfig
+    language: cpp
+    fields:
+      - {name: BeAttackCD, sign: I, position: 10, default: '0', desc: '施加在身上的受击CD'}
+      - {name: AttackPercent, sign: I, position: 20, default: '0', desc: '攻击的能量夺取比例'}
+      - {name: AttackFixedValue, sign: I, position: 30, default: '0', desc: '攻击的能量夺取固定值'}
+      - {name: AttackLow, sign: I, position: 40, default: '0', desc: '攻击的能量夺取最低值'}
+      - {name: AttackPercentInGrass, sign: I, position: 50, default: '0', desc: '攻击的能量夺取比例，草丛内'}
+      - {name: AttackLowInGrass, sign: I, position: 60, default: '0', desc: '攻击的能量夺取最低值，草丛内'}
+  - name: AbsorbHeroConfig
+    language: cpp
+    fields:
+      - {name: AbsorbPercent, sign: I, position: 10, default: '0', desc: '攻击后，本方从伤害值中获取能量百分比'}
+      - {name: AbsorbValue, sign: I, position: 20, default: '0', desc: '攻击后，本方从伤害值中获取能量固定值'}
+      - {name: AbsorbPercentInGrass, sign: I, position: 30, default: '0', desc: '攻击后，本方从伤害值中获取能量百分比, (攻击方在草丛中)'}
+      - {name: AbsorbValueInGrass, sign: I, position: 40, default: '0', desc: '攻击后，本方从伤害值中获取能量固定值, (攻击方在草丛中)'}
+  - name: LoseControlConfig
+    language: cpp
+    fields:
+      - {name: LoseContorlAngle, sign: I, position: 10, default: '0', desc: '失控判断的角度'}
+      - {name: F1AccSpeed_Lose, sign: I, position: 20, default: '0', desc: '失控状态下的F1加速度'}
+      - {name: AngleSpeed_Lost, sign: I, position: 30, default: '0', desc: '失控状态下的移动方向改变速度'}
+      - {name: FaceSpeed_Lose, sign: I, position: 40, default: '0', desc: '失控状态下的模型旋转角速度'}
+      - {name: OutLoseContorlAngle, sign: I, position: 50, default: '0', desc: '脱离失控的角度'}
+  - name: OutControlConfig
+    language: cpp
+    fields:
+      - {name: OutAngle, sign: I, position: 10, default: '0', desc: '失控夹角'}
+      - {name: OutDist, sign: I, position: 20, default: '0', desc: '失控检测距离'}
+      - {name: OutTime, sign: I, position: 30, default: '0', desc: '失控时间(毫秒)'}
+      - {name: ResumeTime, sign: I, position: 40, default: '0', desc: '恢复时间(毫秒)'}
+      - {name: ResumePower, sign: I, position: 50, default: '0', desc: '恢复牵引力'}
+  - name: DinosaurStateConfig
+    language: cpp
+    fields:
+      - {name: MaxSpeed, sign: I, position: 10, default: '0', desc: '最大移动速度'}
+      - {name: Power, sign: I, position: 20, default: '0', desc: '牵引力'}
+      - {name: StateTime, sign: I, position: 30, default: '0', desc: '状态时间'}
+      - {name: MPRecover, sign: I, position: 40, default: '0', desc: 'mp恢复速度'}
+      - {name: AttackedHurtAddition, sign: I, position: 50, default: '0', desc: '额外受击伤害'}
+      - {name: AttackedHurtPercent, sign: I, position: 60, default: '0', desc: '额外受击伤害千分比'}
+      - {name: AwardMPAddition, sign: I, position: 70, default: '0', desc: '额外奖励攻击方能量'}
+      - {name: AwardMPPercent, sign: I, position: 80, default: '0', desc: '额外奖励攻击方能量千分比'}
+      - {name: EffectLimitIds, sign: LI, position: 90, default: '', desc: '进入状态时添加效果的限制条件'}
+      - {name: EffectList, sign: LEffect, position: 100, default: '', desc: '进入状态时添加的效果列表'}
+      - {name: RemoveEffect, sign: B, position: 110, default: '0', desc: '结束状态时，是否移除效果'}
+      - {name: AttackedToStop, sign: B, position: 120, default: '1', desc: '受击是否进入停顿状态'}
+
+
+bases:
+
+maps:
+  MapAreaConfig:
+    fields:
+      - name: SeasonEffectMap
+        sign: map<B, SeasonEffectInfo>
+        language: cpp
+        position: 1000
+        value: "{0: {${Friction_NoWinter_Player}, ${Friction_NoWinter_NPC}, ${MaxSpeed_NoWinter_Percent}, ${AngleSpeed_NoWinter_Percent}},
+                1: {${Friction_Winter_Player}, ${Friction_Winter_NPC}, ${MaxSpeed_Winter_Percent}, ${AngleSpeed_Winter_Percent}}}"
+  SkillParameterConfig:
+    fields:
+      - name: AttackHeroInfo
+        sign: map<I, AttackHeroConfig>
+        language: cpp
+        position: 1010
+        value: "{2: {${ChiefBeAttackCD}, ${AttackChiefPercent}, ${AttackChiefFixedValue}, ${AttackChiefLow}, ${AttackChiefPercent}, ${AttackChiefLow}},
+                1: {${NobleBeAttackCD}, ${AttackNoblePercent}, ${AttackNobleFixedValue}, ${AttackNobleLow}, ${AttackNoblePercentInGrass}, ${AttackNobleLowInGrass}},
+                3: {${FalmenBeAttackCD}, ${AttackFlamenPercent}, ${AttackFlamenFixedValue}, ${AttackFlamenLow}, ${AttackFlamenPercent}, ${AttackFlamenLow}},
+                4: {${WarriorBeAttackCD}, ${AttackWarriorPercent}, ${AttackWarriorFixedValue}, ${AttackWarriorLow}, ${AttackWarriorPercent}, ${AttackWarriorLow}},
+                5: {0, 0, 0, 0, 0, 0},
+                6: {${FalmenBeAttackCD}, ${AttackFlamenPercent}, ${AttackFlamenFixedValue}, ${AttackFlamenLow}, ${AttackFlamenPercent}, ${AttackFlamenLow}},
+                7: {${WarriorBeAttackCD}, ${AttackWarriorPercent}, ${AttackWarriorFixedValue}, ${AttackWarriorLow}, ${AttackWarriorPercent}, ${AttackWarriorLow}}}"
+      - name: AbsorbHeroInfo
+        sign: map<I, AbsorbHeroConfig>
+        language: cpp
+        position: 1020
+        value: "{2: {${AbsorbChiefPercent}, ${AbsorbChiefValue}, ${AbsorbChiefPercent}, ${AbsorbChiefValue}},
+               1: {${AbsorbNoblePercent}, ${AbsorbNobleValue}, ${AbsorbNoblePercentInGrass}, ${AbsorbNobleValueInGrass}},
+               3: {${AbsorbFlamenPercent}, ${AbsorbFlamenValue}, ${AbsorbFlamenPercent}, ${AbsorbFlamenValue}},
+               4: {${AbsorbWarriorPercent}, ${AbsorbWarriorValue}, ${AbsorbWarriorPercent}, ${AbsorbWarriorValue}},
+               5: {0, 0, 0, 0},
+               6: {${AbsorbFlamenPercent}, ${AbsorbFlamenValue}, ${AbsorbFlamenPercent}, ${AbsorbFlamenValue}},
+               7: {${AbsorbWarriorPercent}, ${AbsorbWarriorValue}, ${AbsorbWarriorPercent}, ${AbsorbWarriorValue}}}"
+  HeroConfig:
+    fields:
+      - name: FpMap
+        sign: map<I, I>
+        language: cpp
+        position: 1010
+        value: "{1: ${MaxSpeed},
+                9: ${MoveSpeed},
+                10: ${AngleSpeed},
+                12: ${MaxHP},
+                4: ${CurMP},
+                13: ${MaxMp},
+                14: ${HPRecover},
+                15: ${MPRecover},
+                16: ${ReviveTime},
+                18: 0,
+                27: 0,
+                30: 0,
+                31: 0,
+                34: 0}"
+        # 18 silence
+        # 27 Invisible
+        # 30, AttackRadiusMod
+        # 31, AttackAngleMod
+        # 34, CooldownReduce
+      - name: LoseControlMap
+        sign: map<B, map<I, I>>
+        language: cpp
+        position: 1020
+        value: "{1: {2: ${LoseContorlAngle}, 3: ${F1AccSpeed_Lose}, 4: ${AngleSpeed_Lost}, 5: ${FaceSpeed_Lose}, 6: ${OutLoseContorlAngle}},
+                0: {2: ${GrassLoseContorlAngle}, 3: ${GrassF1AccSpeed_Lose}, 4: ${GrassAngleSpeed_Lost}, 5: ${GrassFaceSpeed_Lose}, 6: ${GrassOutLoseContorlAngle}}}"
+  NpcConfig:
+    fields:
+      - name: OutControlMap
+        sign: map<B, OutControlConfig>
+        language: cpp
+        position: 1010
+        value: "{1: {${OutAngle}, ${OutDist}, ${OutTime}, ${ResumeTime}, ${ResumePower}},
+                0: {${OutAngleNonWinter}, ${OutDistNonWinter}, ${OutTimeNonWinter}, ${ResumeTimeNonWinter}, ${ResumePowerNonWinter}}}"
+  BossDinosaurConfig:
+    fields:
+      - name: StateMap
+        sign: map<I, DinosaurStateConfig>
+        language: cpp
+        position: 5010
+        value: "{
+              0: {${IdleMaxSpeed},${IdlePower},${IdleIntervalTime},0, 0,0,0,0, ,, 0, 1},
+              6: {0,0,${StopTime},0, 0,0,0,0, ,, 0, 0},
+              7: {${RollMaxSpeed},0,${RollTime},0, ${RollAttackedHurtAddition},0,${RollAwardMPAddition},0, ,, 0,0},
+              1: {${PursueMaxSpeed},${PursuePower},0,0, 0,0,0,0, ,, 0, ${AttackedToStop}},
+              8: {0,0,${PrepareTime},0, 0,0,0,0, ,, 0,0},
+              2: {${AttackMaxSpeed},0,${AttackTime},0, 0,0,0,0, ,, 0, 0},
+              9: {${CoastMaxSpeed},${CoastPower},${CoastTime},0, ${CoastAttackedHurtAddition},0,${CoastAwardMPAddition},0, ,, 0, 0},
+              10: {${DigestMaxSpeed},${DigestPower},${DigestTime},0, ${DigestAttackedHurtAddition},0,${DigestAwardMPAddition},0, ,, 0,0}
+        }"
+
+sheets:
+  SkillConfig:
+    fields:
+      - {name: fReleaseDist, sign: F, default: '0.0f', language: cpp, only_define: true}
+      - {name: eReleaseWay, sign: ESkillReleaseWay, default: 'ESReleaseWay_NO_TARGET', language: cpp, only_define: true}
+      - {name: eSkillTargetCate, sign: ESkillTargetCate, default: 'eSTC_None', language: cpp, only_define: true}
+  HeroConfig:
+    fields:
+      - {name: eAttackWay, sign: EAttackWay, default: 'EAttackWay_Near', language: cpp, only_define: true}
+  SkillEffectBaseConfig:
+    fields:
+      - {name: eSkillModelType, sign: ESkillEffectType, default: 'eSkillEffectType_None', language: cpp, only_define: true}
+  SkillAccountConfig:
+    fields:
+      - {name: sEffectInfo, sign: SEffectInfo, language: cpp, only_define: true}
+  SkillBuffConfig:
+    fields:
+      - {name: eBuffTarget, sign: ESkillBuffTarCate, default: 'eSBTC_Releaser', language: cpp, only_define: true}
+      - {name: sEffectInfo, sign: SEffectInfo, language: cpp, only_define: true}
+
+

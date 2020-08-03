@@ -1,0 +1,44 @@
+language: cpp
+
+normal:
+  - {sign: B, raw: B, type: bool, reader: }
+  - {sign: I, raw: I, type: int, reader: }
+  - {sign: F, raw: F, type: float, reader: }
+  - {sign: S, raw: S, type: string, reader: }
+  - {sign: LI, raw: LI, type: vector<int>, reader: }
+  - {sign: LF, raw: LF, type: vector<float>, reader: }
+  - {sign: LS, raw: LS, type: vector<string>, reader: }
+  - sign: Effect
+    raw: SSNextSkillEffectCfg
+    type: SSNextSkillEffectCfg
+    reader:
+  - sign: LEffect
+    raw: list<SSNextSkillEffectCfg>
+    type: vector<SSNextSkillEffectCfg>
+    reader:
+glob:
+  - sign: array<*,*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: list<*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: set<*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - sign: map<*,*>
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+class:
+  - class_type: enum
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
+  - class_type: struct
+    raw: "${Type.name}"
+    type: "${Type.code_name}"
+    reader:
